@@ -1,26 +1,21 @@
-import logo from "./logo.svg";
 import "./App.css";
 import { useEffect, useState } from "react";
-import { getCars } from "./services/carsService";
+import { getAllCars } from "./services/carsService";
+import { Routes, Route } from "react-router-dom";
+import Header from "./components/Header";
+import Cars from "./pages/Cars";
 
 function App() {
 const [cars, setCars] = useState([]);
 useEffect(() => {
-getCars().then(({ data }) => setCars(data));
+getAllCars().then(({ data }) => setCars(data));
 }, []);
 console.log(cars)
 return (
-<div className="App">
-    <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-            {}
-        </p>
-        <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
-            Learn React
-        </a>
-    </header>
-</div>
+<Routes>
+    <Route path="/" element={<Header />}></Route>
+    <Route index path="/cars" element={<Cars />}></Route>
+</Routes>
 );
 }
 
